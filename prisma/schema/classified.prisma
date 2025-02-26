@@ -13,10 +13,10 @@ model Classified{
     makeId Int @map("make_id")
     make Make @relation(fields: [makeId], references: [id], onDelete: Cascade)
     modelId Int @map("model_id")
-   model Model @relation(fields: [modelId], references: [id], onDelete: Cascade)
+    model Model @relation(fields: [modelId], references: [id], onDelete: Cascade)
     modelVariantId Int @map("model_variant_id")
     modelVariant ModelVariant? @relation(fields: [modelVariantId], references: [id], onDelete: Cascade)
-  ulezCompliance  ULEZCompliance @default(EXEMPT)
+    ulezCompliance  ULEZCompliance @default(EXEMPT)
     transmission Transmission @default(MANUAL)
     colour Colour @default(BLACK)
     fuelType FuelType @default(PETROL)
@@ -34,6 +34,7 @@ model Classified{
 @@index([price], name: "index_price")
 @@map("classifieds")
 }
+
 enum ClassifiedStatus {
     LIVE
     SOLD
