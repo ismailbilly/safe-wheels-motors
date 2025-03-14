@@ -1,6 +1,7 @@
 import type { Prisma, PrismaClient } from '@prisma/client'
 import { parse } from 'csv'
 import fs from 'node:fs'
+
 type Row = {
   make: string;
   model: string;
@@ -18,7 +19,7 @@ export async function seedTaxonomy(prisma: PrismaClient) {
             eachRow.push({
               make: row.Make,
               model: row.Model,
-              variant: row.Modet_Variant || undefined,
+              variant: row.Model_Variant || undefined,
               yearStart: Number(row.Year_Start),
               yearEnd: row.Year_End? Number(row.Year_End) : new Date().getFullYear(),
             });
@@ -33,7 +34,7 @@ export async function seedTaxonomy(prisma: PrismaClient) {
             })
     })
 
-    type makeModelMap ={
+    type makeModelMap = {
         [make: string]: {
             [model: string]: {
                 variants: {
@@ -46,6 +47,9 @@ export async function seedTaxonomy(prisma: PrismaClient) {
             }
         }
     }
+
+    
+    
 
     const result: makeModelMap = {}
     for (const row of rows) {
@@ -64,7 +68,7 @@ export async function seedTaxonomy(prisma: PrismaClient) {
             }
         }
     }
-        console.log({ result });
+        //console.log({ result });
         const makePromises = Object.entries(result).map(([name]) => {
             return prisma.make.upsert({
               where: {
@@ -82,7 +86,8 @@ export async function seedTaxonomy(prisma: PrismaClient) {
             });
        })
         const makes = await Promise.all(makePromises);  
-     console.log(`Seedee DB with ${makes.length} makes`);
+    console.log(`Seeded DB with ${makes.length} makes`);
+    
         const modelPromises: Prisma.Prisma__ModelClient<unknown, unknown>[] = [];
         for (const make of makes) { 
             for (const model in result[make.name]) {
@@ -126,6 +131,7 @@ export async function seedTaxonomy(prisma: PrismaClient) {
           
       }
     ); 
+
       const variantPromises: Prisma.Prisma__ModelVariantClient<
         unknown,
         unknown
@@ -172,14 +178,25 @@ export async function seedTaxonomy(prisma: PrismaClient) {
         BATCH_SIZE,
         async (batch) => {
           const variants = await Promise.all(batch);
-          console.log(`Seeded batch of ${variants.length} models`);
+            console.log(`Seeded batch of ${variants.length} variants`);
+            
+            
         }
       );
         
     }
   
     
-      
+//  {
+//   "Toyota": {
+//     "Corolla": {
+//       "variants": {
+//         "XLE": { "yearStart": 2015, "yearEnd": 2022 },
+//         "LE": { "yearStart": 2016, "yearEnd": 2023 }
+//       }
+//     }
+//   }
+// }     
  
     
     

@@ -2,7 +2,7 @@ model Classified{
     id Int @id @default(autoincrement())
     views Int @default(0)
     slug String @unique
-    arm String?
+    vrm String?
     title String?
     description String?
     year Int
@@ -14,7 +14,7 @@ model Classified{
     make Make @relation(fields: [makeId], references: [id], onDelete: Cascade)
     modelId Int @map("model_id")
     model Model @relation(fields: [modelId], references: [id], onDelete: Cascade)
-    modelVariantId Int @map("model_variant_id")
+    modelVariantId Int? @map("model_variant_id")
     modelVariant ModelVariant? @relation(fields: [modelVariantId], references: [id], onDelete: Cascade)
     ulezCompliance  ULEZCompliance @default(EXEMPT)
     transmission Transmission @default(MANUAL)
@@ -23,7 +23,7 @@ model Classified{
     bodyType BodyType @default(SEDAN)
     odoUnit OdoUnit @default(MILES)
     currency CurrencyCode @default(NGN)
-    Images Image[]
+    images Image[]
     status ClassifiedStatus @default(DRAFT)
     customers  Customer[]
     createdAt DateTime @default(now()) @map("created_at")
@@ -43,7 +43,7 @@ enum ClassifiedStatus {
 
 enum CurrencyCode {
     NGN
-    EURO
+    EUR
     USD
 }
 
@@ -80,6 +80,13 @@ enum Colour {
     BLUE
     GREEN
     YELLOW
+    SILVER
+    ORANGE
+    BROWN
+    PURPLE
+    GREY
+    PINK
+    GOLD
 }
 enum ULEZCompliance {
     EXEMPT
