@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "antialiased overscroll-none bg-background",
+          "antialiased overscroll-none bg-background max-w-[1040px] mx-auto",
           roboto.variable,
           mulish.variable
         )}

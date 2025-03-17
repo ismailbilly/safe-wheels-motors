@@ -1,6 +1,6 @@
 "use client";
 
-import { endpoints } from "@/config/constants";
+import { endpoints } from "@/config/endpoints";
 import { api } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { HeartIcon } from "lucide-react";
