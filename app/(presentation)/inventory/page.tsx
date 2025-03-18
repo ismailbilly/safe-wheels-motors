@@ -8,7 +8,8 @@ import { getSourceId } from "@/lib/source-id";
 import { routes } from "@/config/routes";
 import { CLASSIFIEDS_PER_PAGE } from "@/config/constants";
 import { PageSchema } from "@/app/schema/page.schema";
-
+import { Sidebar } from "@/components/inventory/sidebar";
+import { ClassifiedStatus } from "@prisma/client";
 
 const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
   const validPage = PageSchema.parse(searchParams?.page);
@@ -40,9 +41,22 @@ export default async function InventoryPage(props: PageProps) {
   const favourites = await redis.get<Favourites>(sourceId ?? "");
 	const totalPages = Math.ceil(count / CLASSIFIEDS_PER_PAGE);
 
+		const minMaxResult = await prisma.classified.aggregate({
+      where: { status: ClassifiedStatus.LIVE },
+      _min: {
+        year: true,
+        price: true,
+        odoReading: true,
+      },
+      _max: {
+        price: true,
+        year: true,
+        odoReading: true,
+      },
+    });
   return (
     <div className="flex">
-			{/* <Sidebar minMaxValues={minMaxResult} searchParams={searchParams} /> */}
+      <Sidebar/>
 
 			<div className="flex-1 p-4 bg-white">
 				<div className="flex space-y-2 items-center justify-between pb-4 -mt-1">

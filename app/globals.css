@@ -10,7 +10,9 @@
     var(--font-body), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji",
-    --color-foreground: var(--foreground)
+    --color-foreground: var(--foreground),
+    --color-background: var(--background),
+    --color-halo: hsl(221.2 83.2% 53.3%)
     
 }
 
@@ -89,6 +91,7 @@ h6 {
 } */
 
 @layer base {
+
   * {
     @apply  outline-ring/50;
   }
@@ -105,3 +108,4 @@ h6 {
     @apply bg-background text-foreground;
   }
 }
+

@@ -132,7 +132,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
             </div>
             <div className="mt-4 flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:gap-x-2 w-full">
               <Button
-                className="flex-1 transition-colors hover:border-white hover:bg-blue-400 hover:text-white py-2 lg:py-2.5 h-full text-xs md:text-sm xl:text-base"
+                className="flex-1 transition-colors hover:border-white hover:bg-blue-500 hover:text-white py-2 lg:py-2.5 h-full text-xs md:text-sm xl:text-base"
                 asChild
                 variant="outline"
                 size="sm"
@@ -147,7 +147,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
                 </Link>
               </Button>
               <Button
-                className="flex-1 py-2 lg:py-2.5 h-full text-xs md:text-sm xl:text-base"
+                className="flex-1 py-2 lg:py-2.5 h-full text-xs md:text-sm xl:text-base bg-blue-500 text-white"
                 asChild
                 variant="outline"
                 size="sm"
